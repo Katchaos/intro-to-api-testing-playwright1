@@ -11,8 +11,11 @@ test('update order with valid id and api key', async ({ request }) => {
     comment: 'string',
     id: 1,
   }
-  const headers = { 'api_key': '1234567890123456' }
-  const response = await request.put('https://backend.tallinn-learning.ee/test-orders/' + '1', { data: body, headers })
+  const headers = { api_key: '1234567890123456' }
+  const response = await request.put('https://backend.tallinn-learning.ee/test-orders/' + '1', {
+    data: body,
+    headers,
+  })
   console.log('response status:', response.status())
   console.log('response body:', await response.json())
 
@@ -28,9 +31,12 @@ test('update order with invalid api key', async ({ request }) => {
     comment: 'string',
     id: 1,
   }
-  const headers = { 'api_key': '1234' }
+  const headers = { api_key: '1234' }
 
-  const response = await request.put('https://backend.tallinn-learning.ee/test-orders/' + '1', { data: body, headers })
+  const response = await request.put('https://backend.tallinn-learning.ee/test-orders/' + '1', {
+    data: body,
+    headers,
+  })
   console.log('response status:', response.status())
   console.log('response body:', await response.text())
 
@@ -46,8 +52,11 @@ test('delete order with correct id should receive code 204', async ({ request })
     comment: 'string',
     id: 1,
   }
-  const headers = { 'api_key': '1234567890123456' }
-  const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/' + '1', { data: body, headers })
+  const headers = { api_key: '1234567890123456' }
+  const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/' + '1', {
+    data: body,
+    headers,
+  })
   console.log('response status:', response.status())
   console.log('response body:', await response.text())
 
@@ -63,15 +72,18 @@ test('delete order with incorrect api should receive code 401', async ({ request
     comment: 'string',
     id: 1,
   }
-  const headers = { 'api_key': '1234' }
-  const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/' + '1', { data: body, headers })
+  const headers = { api_key: '1234' }
+  const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/' + '1', {
+    data: body,
+    headers,
+  })
   console.log('response status:', response.status())
   console.log('response body:', await response.text())
 
   expect(response.status()).toBe(StatusCodes.UNAUTHORIZED)
 })
 
-test('login with correct username and password should receive code 200', async ({ request, }) => {
+test('login with correct username and password should receive code 200', async ({ request }) => {
   const response = await request.get('https://backend.tallinn-learning.ee/test-orders', {
     params: {
       username: 'Jack Black',
@@ -85,7 +97,7 @@ test('login with correct username and password should receive code 200', async (
   expect(response.status()).toBe(StatusCodes.OK)
 })
 
-test('login with no username or password should receive code 500', async ({ request, }) => {
+test('login with no username or password should receive code 500', async ({ request }) => {
   const response = await request.get('https://backend.tallinn-learning.ee/test-orders', {
     params: {
       username: 'Jack Black',
