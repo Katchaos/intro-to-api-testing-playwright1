@@ -14,12 +14,4 @@ export class OrderDto {
     this.comment = comment
     this.id = id
   }
-
-  static createOrderWithRandomData(): OrderDto {
-    return new OrderDto(
-      "John Doe",
-      "39999999999",
-      "Test comment",
-    )
-  }
 }
