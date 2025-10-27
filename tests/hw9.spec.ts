@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes'
 import { OrderDto } from '../dto/order-dto'
 
 test('update order with valid id and api key', async ({ request }) => {
-  const requestBody = new OrderDto('OPEN', 0, 'John', '98654578', 'READY', 1)
+  const requestBody = new OrderDto( 'John', '98654578', 'READY', 1)
   const headers = { api_key: '1234567890123456' }
   const response = await request.put('https://backend.tallinn-learning.ee/test-orders/' + '1', {
     data: requestBody,
@@ -17,7 +17,7 @@ test('update order with valid id and api key', async ({ request }) => {
 })
 
 test('update order with invalid api key', async ({ request }) => {
-  const requestBody = new OrderDto('OPEN', 0, 'John', '98654578', 'READY', 1)
+  const requestBody = OrderDto.createOrderWithLowPriority()
   const headers = { api_key: '1234' }
   const response = await request.put('https://backend.tallinn-learning.ee/test-orders/' + '1', {
     data: requestBody,
@@ -30,7 +30,7 @@ test('update order with invalid api key', async ({ request }) => {
 })
 
 test('delete order with correct id should receive code 204', async ({ request }) => {
-  const requestBody = new OrderDto('OPEN', 0, 'John', '98654578', 'READY', 1)
+  const requestBody = new OrderDto( 'John', '98654578', 'READY', 1)
   const headers = { api_key: '1234567890123456' }
   const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/' + '1', {
     data: requestBody,
@@ -43,7 +43,7 @@ test('delete order with correct id should receive code 204', async ({ request })
 })
 
 test('delete order with incorrect api should receive code 401', async ({ request }) => {
-  const requestBody = new OrderDto('OPEN', 0, 'John', '98654578', 'READY', 1)
+  const requestBody = new OrderDto( 'John', '98654578', 'READY', 1)
   const headers = { api_key: '1234' }
   const response = await request.delete('https://backend.tallinn-learning.ee/test-orders/' + '1', {
     data: requestBody,
