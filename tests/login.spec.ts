@@ -18,12 +18,12 @@ test('response should contain valid JWT token', async ({ request }) => {
     data: requestBody,
   })
 
-  const jwtValue = await response.text();
-  const jwtRegex = /^eyJhb[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/;
+  const jwtValue = await response.text()
+  const jwtRegex = /^eyJhb[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/
 
   console.log('response body and token:' + jwtValue)
   expect.soft(response.status()).toBe(StatusCodes.OK)
-  expect.soft(jwtValue).toMatch(jwtRegex);
+  expect.soft(jwtValue).toMatch(jwtRegex)
 })
 
 test('should not return token with incorrect name and password', async ({ request }) => {
